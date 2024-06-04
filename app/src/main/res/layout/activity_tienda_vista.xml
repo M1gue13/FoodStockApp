@@ -33,11 +33,12 @@
                         android:id="@+id/textView11"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
+                        android:layout_marginTop="15dp"
                         android:background="#FFC107"
-                        android:text="Carrito "
+                        android:text="Gestor Carrito"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
-                        android:textSize="34sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
