@@ -1,9 +1,12 @@
 package com.example.foodstockapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -165,4 +168,65 @@ public class MainActivity2 extends AppCompatActivity {
         iasd.putExtra("userId", userID);
         startActivity(iasd);
     }
+
+    public void onFotoInventario(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Cambiar URL de la imagen");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String newUrl = input.getText().toString();
+                if (!newUrl.isEmpty()) {
+                    updateImageAndSaveUrl(newUrl);
+                } else {
+                    Toast.makeText(MainActivity2.this, "URL no puede estar vacía", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+    private void updateImageAndSaveUrl(String newUrl) {
+        ImageView imageView = findViewById(R.id.idFotoInventario);
+        Glide.with(this).load(newUrl).into(imageView);
+
+        db.collection("Inventario")
+                .whereEqualTo("userId", userID)
+                .whereEqualTo("nombre", nombreProducto)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
+                        DocumentReference docRef = document.getReference();
+
+                        docRef.update("url", newUrl)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(MainActivity2.this, "URL actualizada y guardada", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(MainActivity2.this, "Error al guardar la nueva URL", Toast.LENGTH_SHORT).show();
+                                });
+                    } else {
+                        Toast.makeText(MainActivity2.this, "Producto no encontrado", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(MainActivity2.this, "Error al obtener el producto", Toast.LENGTH_SHORT).show();
+                });
+    }
+
 }
