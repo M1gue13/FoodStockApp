@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854750911290",
+    "project_id": "foodstockbd-47cc4",
+    "storage_bucket": "foodstockbd-47cc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854750911290:android:5171a395421441d5da4e03",
+        "android_client_info": {
+          "package_name": "com.example.foodstockapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHOkuntXiQd9XWvG_58uw7qMaZsAsnFd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
