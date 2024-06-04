@@ -174,7 +174,9 @@ public class AnalizarTicket extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.w(TAG, "Error adding document", e);
-
+                                Intent ias = new Intent(AnalizarTicket.this, App.class);
+                                ias.putExtra("userId", userID);
+                                startActivity(ias);
                             }
                         });
 
