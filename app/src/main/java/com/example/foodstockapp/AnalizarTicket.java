@@ -137,7 +137,6 @@ public class AnalizarTicket extends AppCompatActivity {
 
     public void onAnyadirInventario(View view) {
 
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String textoEscaneado = texto.getText().toString();
         if (textoEscaneado.isEmpty()) {
@@ -149,45 +148,43 @@ public class AnalizarTicket extends AppCompatActivity {
         for (String linea : lineas) {
             String[] partes = linea.split(" ", 2);
             if (partes.length == 2) {
-                String cantidad = partes[0];
-                String nombre = partes[1];
+                try {
+                    int cantidadNumerica = Integer.parseInt(partes[0]);
+                    String nombre = partes[1];
 
-                Map<String, Object> inventarioItem = new HashMap<>();
-                inventarioItem.put("userId", userID);
-                inventarioItem.put("nombre", nombre);
-                int cantidadNumerica = Integer.parseInt(cantidad);
-                inventarioItem.put("cantidad", cantidadNumerica);
-                inventarioItem.put("url", "https://cdn-icons-png.flaticon.com/128/3524/3524344.png");
+                    Map<String, Object> inventarioItem = new HashMap<>();
+                    inventarioItem.put("userId", userID);
+                    inventarioItem.put("nombre", nombre);
+                    inventarioItem.put("cantidad", cantidadNumerica);
+                    inventarioItem.put("url", "https://cdn-icons-png.flaticon.com/128/3524/3524344.png");
 
-                db.collection("Inventario")
-                        .add(inventarioItem)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                Intent ia = new Intent(AnalizarTicket.this, App.class);
-                                ia.putExtra("userId", userID);
-                                startActivity(ia);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                                Intent ias = new Intent(AnalizarTicket.this, App.class);
-                                ias.putExtra("userId", userID);
-                                startActivity(ias);
-                            }
-                        });
+                    db.collection("Inventario")
+                            .add(inventarioItem)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    Intent ia = new Intent(AnalizarTicket.this, App.class);
+                                    ia.putExtra("userId", userID);
+                                    startActivity(ia);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                } catch (NumberFormatException e) {
 
+                }
             } else {
-                Toast.makeText(this, "Formato de línea incorrecto: " + linea, Toast.LENGTH_SHORT).show();
+
             }
         }
-
-
-
     }
+
+
 
 
 }
