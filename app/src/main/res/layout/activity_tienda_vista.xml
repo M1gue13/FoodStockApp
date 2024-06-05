@@ -35,7 +35,7 @@
                         android:layout_height="70dp"
                         android:layout_marginTop="15dp"
                         android:background="#FFC107"
-                        android:text="Gestor Carrito"
+                        android:text="Lista Productos"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
@@ -98,8 +98,8 @@
                 android:layout_marginRight="50dp"
                 android:backgroundTint="#FFC107"
                 android:onClick="onSeguirComprando"
-                android:text="Seguir Comprando"
-                android:textSize="20sp"
+                android:text="Seguir Añadiendo Productos"
+                android:textSize="16sp"
                 app:cornerRadius="10dp" />
         </LinearLayout>
     </LinearLayout>
