@@ -93,7 +93,7 @@
         android:layout_height="55dp"
         android:backgroundTint="#4CAF50"
         android:onClick="onVolverGestor"
-        android:text="Gestor"
+        android:text="Lista"
         android:textSize="16sp"
         app:cornerRadius="10dp"
         app:icon="@drawable/flecha_hacia_atras"
