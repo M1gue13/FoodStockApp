@@ -102,6 +102,6 @@ public class TiendaVista extends AppCompatActivity {
     public void onBorrarCarrito(View view) {
         listaObjetos.clear();
         carritoAdapter.notifyDataSetChanged();
-        mensajeCorto("El carrito ha sido vaciado");
+        mensajeCorto("El ticket ha sido vaciado");
     }
     }

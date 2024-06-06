@@ -35,10 +35,10 @@
                         android:layout_height="70dp"
                         android:layout_marginTop="15dp"
                         android:background="#FFC107"
-                        android:text="Lista Productos"
+                        android:text="Ticket "
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textSize="30sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -52,9 +52,10 @@
                         android:id="@+id/imageView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
                         android:layout_weight="1"
                         android:onClick="onBorrarCarrito"
-                        app:srcCompat="@drawable/carro_vacio_blanco" />
+                        app:srcCompat="@drawable/boleto" />
                 </LinearLayout>
             </LinearLayout>
 

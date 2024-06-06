@@ -51,53 +51,57 @@ public class Registrarse extends AppCompatActivity {
         if (nombreF.length() >= 5) {
             if (gmailF.contains("@gmail.com") || gmailF.contains("@hotmail.com") || gmailF.contains("@xuqueralumnat.es")) {
                 if (contraF.equals(contraF2)) {
-                    if (checkBox.isChecked()) {
-                        db.collection("Usuarios")
-                                .orderBy("id", Query.Direction.DESCENDING)
-                                .limit(1)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            int nuevaID = 1;
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                long ultimaID = document.getLong("id");
-                                                int ultimoNumero = (int) ultimaID;
-                                                nuevaID = ultimoNumero + 1;
+                    if (contraF.length() >= 5) {
+                        if (checkBox.isChecked()) {
+                            db.collection("Usuarios")
+                                    .orderBy("id", Query.Direction.DESCENDING)
+                                    .limit(1)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                int nuevaID = 1;
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    long ultimaID = document.getLong("id");
+                                                    int ultimoNumero = (int) ultimaID;
+                                                    nuevaID = ultimoNumero + 1;
+                                                }
+
+                                                Map<String, Object> user = new HashMap<>();
+                                                user.put("id", nuevaID); // Usa nuevaID como número
+                                                user.put("nombre", nombreF);
+                                                user.put("gmail", gmailF);
+                                                user.put("contrasenya", contraF);
+
+                                                db.collection("Usuarios")
+                                                        .add(user)
+                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w(TAG, "Error adding document", e);
+                                                            }
+                                                        });
+
+                                                Intent intent = new Intent(Registrarse.this, MainActivity.class);
+                                                startActivity(intent);
+                                                mensajeCorto("Bienvenido a FoodStock");
+                                            } else {
+                                                Log.d(TAG, "Error getting documents: ", task.getException());
                                             }
-
-                                            Map<String, Object> user = new HashMap<>();
-                                            user.put("id", nuevaID); // Usa nuevaID como número
-                                            user.put("nombre", nombreF);
-                                            user.put("gmail", gmailF);
-                                            user.put("contrasenya", contraF);
-
-                                            db.collection("Usuarios")
-                                                    .add(user)
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentReference documentReference) {
-                                                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error adding document", e);
-                                                        }
-                                                    });
-
-                                            Intent intent = new Intent(Registrarse.this, MainActivity.class);
-                                            startActivity(intent);
-                                            mensajeCorto("Bienvenido a FoodStock");
-                                        } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
                                         }
-                                    }
-                                });
+                                    });
+                        } else {
+                            mensajeCorto("Selecciona los términos y condiciones");
+                        }
                     } else {
-                        mensajeCorto("Selecciona los términos y condiciones");
+                        mensajeCorto("La contraseña debe tener al menos 5 caracteres");
                     }
                 } else {
                     mensajeCorto("Las contraseñas no son iguales");
@@ -115,7 +119,7 @@ public class Registrarse extends AppCompatActivity {
         CharSequence text = mensaje;
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast .makeText(context, text, duration);
+        Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
 
