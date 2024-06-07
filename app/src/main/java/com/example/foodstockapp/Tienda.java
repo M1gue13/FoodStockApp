@@ -38,6 +38,7 @@ public class Tienda extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         EditText idBuscador = findViewById(R.id.idBuscador);
 
+        //Cuando se carga la pantalla muestra una lista de todos los productos que hay para poder añadir un ticket de forma manual
         userID = getIntent().getIntExtra("userId", -1);
 
         db.collection("TiendaF")
@@ -61,6 +62,7 @@ public class Tienda extends AppCompatActivity {
                             adapter.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    //Cuando se clica el producto seleccionado lleva la informacion a otra pantalla
                                     Intent intent = new Intent(Tienda.this, TiendaObjetoVista.class);
                                     intent.putExtra("id", filteredItems.get(recyclerView.getChildAdapterPosition(view)).getId());
                                     intent.putExtra("nombre", filteredItems.get(recyclerView.getChildAdapterPosition(view)).getNombre());
@@ -81,7 +83,6 @@ public class Tienda extends AppCompatActivity {
         idBuscador.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No es necesario hacer nada aquí
             }
 
             @Override
@@ -91,11 +92,11 @@ public class Tienda extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // No es necesario hacer nada aquí
             }
         });
     }
 
+    //Metodo para poder hacer una busqueda de un producto en especifico
     private void filtrar(String texto) {
         filteredItems.clear();
         for (ItemTienda item : items) {
@@ -106,12 +107,14 @@ public class Tienda extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    //Volver al menu
     public void onIrMenu(View view) {
         Intent salir = new Intent(Tienda.this, App.class);
         salir.putExtra("userId", userID);
         startActivity(salir);
     }
 
+    //Al pulsar el boton del ticket podras ver los productos que tienes en el ticket
     public void onVistaTienda(View view) {
         Intent i = new Intent(Tienda.this, TiendaVista.class);
         i.putExtra("userId", userID);

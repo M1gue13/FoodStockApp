@@ -36,11 +36,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRegistro(View view) {
+        //Ir a registrarse para crear lac cuenta
         Intent i = new Intent(MainActivity.this , Registrarse.class);
         startActivity(i);
     }
 
     public void onSesion(View view) {
+        //Iniciar Sesion
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         EditText nombre = findViewById(R.id.idNombre);
         EditText contrasenya = findViewById(R.id.idContra);
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void mensajeCorto(String mensaje){
+        //Metodo para crear mensajes
         Context context = getApplicationContext();
         CharSequence text = mensaje;
         int duration = Toast.LENGTH_SHORT;

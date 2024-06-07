@@ -21,7 +21,7 @@ public class TiendaObjetoVista extends AppCompatActivity {
         setContentView(R.layout.activity_tienda_objeto_vista);
         userID = getIntent().getIntExtra("userId", -1);
 
-
+        //Cuando pulsas un producto de la lista este recibe la informacion del producto y se inserta en el textview y el imageview
         TextView textNombre = findViewById(R.id.nombreText);
         ImageView urlIma = findViewById(R.id.imagenurl);
 
@@ -36,6 +36,7 @@ public class TiendaObjetoVista extends AppCompatActivity {
 
     }
 
+    //Añadir el producto seleccionado con la cantidad a la cesta del ticket
     public void onAnyadirLista(View view) {
 
         EditText edit1 = findViewById(R.id.idNumber);
@@ -58,7 +59,7 @@ public class TiendaObjetoVista extends AppCompatActivity {
 
 
     }
-
+    //Volver a lista de productos que salen en añadir ticket manualmente
     public void onVolverGestor(View view) {
         Intent gestor = new Intent(TiendaObjetoVista.this, Tienda.class);
         gestor.putExtra("userId", userID);

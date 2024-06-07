@@ -75,6 +75,7 @@ public class AnalizarTicket extends AppCompatActivity {
         });
     }
     private void reconocerTextoImagen() {
+        //metodo para el reconocimiento de texto de una foto
         progressDialog.setMessage("Preparando Imagen");
         progressDialog.dismiss();
 
@@ -93,7 +94,7 @@ public class AnalizarTicket extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(AnalizarTicket.this, "no se puede reconocer texto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AnalizarTicket.this, "No se puede reconocer texto", Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (IOException e) {
@@ -102,6 +103,7 @@ public class AnalizarTicket extends AppCompatActivity {
 
     }
     public void onCamara(View view) {
+        //Hacer foto
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE,"Titulo");
         values.put(MediaStore.Images.Media.DESCRIPTION,"Des");
@@ -130,6 +132,7 @@ public class AnalizarTicket extends AppCompatActivity {
     }
 
     public void onMenu(View view) {
+        //Invent para volver al menu
         Intent i = new Intent(AnalizarTicket.this, App.class);
         i.putExtra("userId", userID);
         startActivity(i);
@@ -137,6 +140,7 @@ public class AnalizarTicket extends AppCompatActivity {
 
     public void onAnyadirInventario(View view) {
 
+        //Cuando se pulsa el boton, guardo la informacion que sale en el textview para añdirlo al inventario
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String textoEscaneado = texto.getText().toString();
         if (textoEscaneado.isEmpty()) {

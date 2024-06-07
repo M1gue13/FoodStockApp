@@ -36,6 +36,12 @@ public class Registrarse extends AppCompatActivity {
     }
 
     public void onRegistrarse(View view) {
+        //Crear la cuenta
+        // Campo de nombre minimo 5 caracteres
+        // Campo correo valido
+        // Campo contraseña minimo 5 caracteres
+        //hago un read de todos los usuarios para poder obtener la id mas alta que hay para cuadno se crea un nuevo usuario
+        //obtenerla y añadirla con +1 para hacer el id autoincremental y poder añadir el usuario correctamente
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         EditText nombre = findViewById(R.id.idNombreRe);
         EditText gmail = findViewById(R.id.idGmail);
@@ -115,6 +121,7 @@ public class Registrarse extends AppCompatActivity {
     }
 
     public void mensajeCorto(String mensaje){
+        //metodo para hacer mensajes personalizados
         Context context = getApplicationContext();
         CharSequence text = mensaje;
         int duration = Toast.LENGTH_SHORT;
@@ -124,6 +131,7 @@ public class Registrarse extends AppCompatActivity {
     }
 
     public void onPrinciApp(View view) {
+        //Volver a Iniciar Sesion
         Intent ia = new Intent(Registrarse.this, MainActivity.class);
         startActivity(ia);
     }

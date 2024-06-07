@@ -45,7 +45,7 @@ public class AnyadirProductoGestion extends AppCompatActivity {
         imag2 = findViewById(R.id.idFotoProductoG2);
 
 
-
+        //Metodo para cargar la imagen cuando se inserta la url
         textU.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -62,6 +62,8 @@ public class AnyadirProductoGestion extends AppCompatActivity {
     }
 
     public void onAnyadirGesP(View view) {
+        //Hago un read de todos los productos que salen en lista cuando añades un ticket manualmente
+        // Con esto obtengo la id mas alta y le añado un +1 para poder añadir nuevos productos con la id incremental
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         String nombre = textN.getText().toString();
@@ -120,6 +122,7 @@ public class AnyadirProductoGestion extends AppCompatActivity {
     }
 
     public void onMenuProductoAnnydir(View view) {
+        //Intent para volver al menu principal
         Intent intent3 = new Intent(AnyadirProductoGestion.this, App.class);
         intent3.putExtra("userId", userID);
         startActivity(intent3);

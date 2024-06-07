@@ -30,6 +30,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        //Este recibe los datos de cuando se clica en un producto del inventario y los carga en esta pantalla
         db = FirebaseFirestore.getInstance();
 
         TextView text1 = findViewById(R.id.idProductoInventario);
@@ -47,6 +48,8 @@ public class MainActivity2 extends AppCompatActivity {
         Glide.with(this).load(url).into(text3);
     }
 
+
+    //Boton para ir añadiendo la cantidad de +1 al producto seleccionado
     public void onAnyadirX1(View view) {
         db.collection("Inventario")
                 .whereEqualTo("userId", userID)
@@ -84,6 +87,8 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(menus);
     }
 
+    //Boton para ir añadiendo la cantidad de +3 al producto seleccionado
+
     public void onAnyadirX3(View view) {
         db.collection("Inventario")
                 .whereEqualTo("userId", userID)
@@ -113,6 +118,7 @@ public class MainActivity2 extends AppCompatActivity {
                 });
     }
 
+    //Boton para ir restando la cantidad de -1 al producto seleccionado y cuando llega a 0 se borra el producto del Inventario
     public void onRetirarX1(View view) {
         db.collection("Inventario")
                 .whereEqualTo("userId", userID)
@@ -169,6 +175,7 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(iasd);
     }
 
+    //metodo para cuando pulsas la imagen de tu producto y poderle cambiar la imagen mediante la url
     public void onFotoInventario(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

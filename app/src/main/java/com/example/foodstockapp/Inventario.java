@@ -48,7 +48,7 @@ public class Inventario extends AppCompatActivity {
 
         TextView textpreuba = findViewById(R.id.textView8);
 
-
+        // Cuando se carga la pantalla muestra un recyclerview de los productos del inventario correspondiente
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         RecyclerView recyclerView3 = findViewById(R.id.recyclerview3);
@@ -79,6 +79,7 @@ public class Inventario extends AppCompatActivity {
                             inventarioAdapter.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    //Cuando se clica en un producto este envia la informacion a la otra pantalla
                                     Intent pro = new Intent(Inventario.this, MainActivity2.class);
                                     pro.putExtra("id", items.get(recyclerView3.getChildAdapterPosition(view)).getId());
                                     pro.putExtra("nombre", items.get(recyclerView3.getChildAdapterPosition(view)).getNombre());
@@ -107,6 +108,7 @@ public class Inventario extends AppCompatActivity {
 
 
     private void checkInventory(int userId) {
+        //Este metodo muestra las notificaciones con el nombre y la cantidad del producto
         db2.collection("Inventario")
                 .whereEqualTo("userId", userId)
                 .whereIn("cantidad", Arrays.asList(1, 2, 3))
@@ -133,6 +135,7 @@ public class Inventario extends AppCompatActivity {
 
 
     private void showNotification(String nombre, int cantidad) {
+        //Metodo para crear las notificaciones
         String contentText = "El producto " + nombre + " tiene " + cantidad + " unidades restantes.";
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)

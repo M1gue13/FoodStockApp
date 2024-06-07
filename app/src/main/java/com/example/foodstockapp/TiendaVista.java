@@ -35,6 +35,7 @@ public class TiendaVista extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda_vista);
 
+        // Aqui puedes ver los productos que tienes el ticket
         userID = getIntent().getIntExtra("userId", -1);
 
         RecyclerView recyclerView2 = findViewById(R.id.recyclerview2);
@@ -47,7 +48,7 @@ public class TiendaVista extends AppCompatActivity {
 
     public void onAñadirInventario(View view) {
 
-
+    //los productos se añaden al inventario
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         for (ItemTienda item : listaObjetos) {
@@ -83,6 +84,7 @@ public class TiendaVista extends AppCompatActivity {
 
     }
 
+    //Para volver a seguir añadiendo productos
     public void onSeguirComprando(View view) {
 
         Intent ia = new Intent(TiendaVista.this, Tienda.class);
@@ -90,6 +92,7 @@ public class TiendaVista extends AppCompatActivity {
         startActivity(ia);
     }
 
+    //Mensajes personalizadosz
     public void mensajeCorto(String mensaje){
         Context context = getApplicationContext();
         CharSequence text = mensaje;
@@ -99,6 +102,7 @@ public class TiendaVista extends AppCompatActivity {
         toast.show();
     }
 
+    //Boton para borrar todos los productos de tu ticket personalizado
     public void onBorrarCarrito(View view) {
         listaObjetos.clear();
         carritoAdapter.notifyDataSetChanged();
